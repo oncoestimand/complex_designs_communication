@@ -1,0 +1,566 @@
+---
+title: "Code supporting the examples in the paper _Communicating results in trials with multiple hypotheses or adaptive design features_"
+author: "Marcel Wolbers, on behalf of the author team"
+date: 'Last modification: `r Sys.setlocale("LC_TIME", "C"); format(Sys.Date(), "%d %b %Y")`'
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    toc-title: Contents
+    toc-location: left
+    number-sections: true
+    number-depth: 2
+bibliography: stat.bib
+---
+
+# Background
+
+Code for the paper _Communicating results in trials with multiple hypotheses or adaptive design features_, Asikanius et al. [-@asikanius_26], written by an author team of statisticians from regulators, academia, and industry.
+
+# Purpose of this document
+
+This R Quarto file provides easy accessible code to compute all the quantities in the paper. The github repository where this document is hosted is available [here](https://github.com/oncoestimand/complex_designs_communication).
+
+# Setup {.tabset .tabset-fade .tabset-pills}
+
+```{r setup, message= FALSE, warning = FALSE}
+# packages
+library(MASS)
+library(gMCPLite) # graphical multiple testing procedures 
+library(rpact)    # group-sequential and adaptive trials
+
+# Source functions for calculating bias-adjusted estimators in GS trials via simulation
+source("biasCorrectGroupSeqSurvival.R")
+```
+
+# Example 1: A randomized trial in early Alzheimer’s disease with hierarchical testing {-}
+
+## Reproduce numbers in Table 1
+
+```{r ex1_unadj}
+# ----------------------------------------
+# Unadjusted trial results 
+# ----------------------------------------
+
+alpha <- 0.05
+za <- qnorm(1 - alpha / 2)
+endpoints <- c("CDR-SB", "ADAS-Cog13", "FAQ")
+estimate <- c(-0.4, -1.3, -1.1)
+se <- c(0.6, 3, 1.6) / (2 * za)
+
+# one-sided p-value
+p_values_less <- pnorm(estimate / se)
+p_values_greater <- 1 - p_values_less
+
+# per comparison two-sided CI and p-values 
+data.frame(
+  endpoints,
+  estimate, 
+  ci_lower_unadj = estimate - za * se, 
+  ci_upper_unadj = estimate + za * se, 
+  p_value_2sided_unadj  = 2 * pmin(p_values_greater, p_values_less),
+  p_value_2sided_unadj_r  = round(2 * pmin(p_values_greater, p_values_less), 2)
+  )
+```
+
+```{r ex1_adj}
+# ----------------------------------------
+# Adjusted trial results 
+# ----------------------------------------
+
+# Define transition matrix and weights for hierarchical testing 
+# (as a graphical multiple comparison procedure)
+transitions <- rbind(
+  c(0, 1, 0),
+  c(0, 0, 1),
+  c(0, 0, 0)
+)
+
+weights <- c(1, 0, 0)
+hierarchical_graph <- matrix2graph(transitions, weights)
+
+# ----------------------------------------
+# plot graph (one-sided at level 0.025)
+# ----------------------------------------
+hGraph(
+  nHypotheses = 3,
+  nameHypotheses = endpoints,
+  alphaHypotheses = c(alpha / 2, 0, 0),
+  m = transitions
+)
+
+# ----------------------------------------
+# adjusted p-values 
+# ----------------------------------------
+
+# direction "greater"
+result_greater <- gMCP(
+  graph = hierarchical_graph, 
+  pvalues = p_values_greater, 
+  alpha = alpha / 2
+)
+
+# one-sided 
+result_greater@adjPValues 
+
+# direction "less"
+result_less <- gMCP(
+  graph = hierarchical_graph, 
+  pvalues = p_values_less, 
+  alpha = alpha / 2
+)
+
+# one-sided 
+result_less@adjPValues 
+
+# ----------------------------------------
+# simultaneous confidence intervals 
+# ----------------------------------------
+
+# One-sided 97.5% CI, direction "greater"
+ci_results_greater <- simConfint(
+  object = hierarchical_graph, 
+  pvalues = p_values_greater, 
+  confint = "normal",       
+  estimates = estimate, 
+  alpha = alpha / 2,
+  alternative = "greater" 
+)
+
+ci_results_greater
+
+# One-sided 97.5% CI, direction "less"
+ci_results_less <- simConfint(
+  object = hierarchical_graph, 
+  pvalues = p_values_less, 
+  confint = "normal",       
+  estimates = estimate, 
+  alpha = alpha / 2,
+  alternative = "less" 
+)
+
+ci_results_less
+
+# Unadjusted two-sided CI (intersection of the two one-sided CI) 
+# and two-sided p-value
+data.frame(
+  endpoints, 
+  estimate = estimate,
+  ci_lower_adj = ci_results_greater[, "lower bound"], 
+  ci_upper_adj = ci_results_less[, "upper bound"], 
+  p_value_2sided_adj  = 2 * pmin(result_greater@adjPValues, result_less@adjPValues),
+  p_value_2sided_adj_r  = round(2 * pmin(result_greater@adjPValues, result_less@adjPValues), 2)
+)
+```
+
+# Example 2: A group-sequential trial with hierarchical testing in oncology {-}
+
+## Results for progression-free survival (PFS) {-}
+
+### Trial design 
+
+```{r ex2_pfs_design}
+# ----------------------------------------
+# primary endpoint: PFS
+# ----------------------------------------
+
+# 230 events total -> 90% power for HR=0.65
+# IA after 152 events (66%); 
+# observed at IA:
+#   - log(HR) = log(0.61)
+#   - SE = sqrt(4 / 152)
+
+alpha <- 0.05
+za <- qnorm(1 - alpha / 2)
+beta <- 0.1
+d_int <- 152
+d_fin <- 230
+n <- 500
+hr <- 0.65
+
+# Group-sequential design
+infoRates1 <- c(d_int / d_fin, 1)
+
+d1 <- getDesignGroupSequential(
+  informationRates = infoRates1,typeOfDesign = "asOF",
+  sided = 2, alpha = alpha, beta = beta)
+summary(d1)
+
+s1 <- getPowerSurvival(
+  d1, maxNumberOfSubjects = n, maxNumberOfEvents = d_fin, 
+  median1 = 24, hazardRatio = hr)
+summary(s1)
+```
+
+### Naive inference {-}
+
+```{r ex2_pfs_naive}
+# ----------------------------------------
+# naive inference
+# ----------------------------------------
+
+# observed at interim
+log_est1 <- log(0.61)
+se1 <- sqrt(4 / 152)
+
+log_est1_lower <- log_est1 - za * se1
+log_est1_upper <- log_est1 + za * se1
+
+# estimate and CI
+exp(c(log_est1, log_est1_lower, log_est1_upper)) 
+
+# 2-sided p-value
+2 * pnorm(log_est1 / se1) 
+```
+
+### Inference based on stagewise ordering {-}
+
+```{r ex2_pfs_stagewise}
+#- Median unbiased estimator, CI, p-value based on stage-wise ordering as well as repeated CI and 
+#- p-value with rpact
+#-
+#- !! For rpact v4.30, the "Final p-value" (i.e. p-value based on stage-wise ordering) 
+#-    is reported  as 0.9988 in the output below but it should rather be 
+#-    1-0.9988 = 0.0012 instead. 
+#-    [See https://github.com/rpact-com/rpact/issues/114 which will hopefully be 
+#-    fixed soon]
+r1 <- getDataSet(
+  overallEvents = c(d_int),
+  overallLogRanks = c(log_est1/se1),
+  overallAllocationRatio = c(1)
+)
+
+adj_r1 <- getAnalysisResults(
+  design = d1,
+  dataInput = r1
+)
+
+summary(adj_r1)
+```
+
+### Global bias adjusted estimator via simulation  {-}
+
+```{r ex2_global}
+boundaryEffectScaleLower <- s1$criticalValuesEffectScaleLower[,1]
+boundaryEffectScaleUpper <- s1$criticalValuesEffectScaleUpper[,1]
+
+# estimator
+biasCorrectGroupSeqSurvival(
+  hazardRatioMLE = exp(log_est1), 
+  stopstage = 1, 
+  type = "global",
+  n = 1E6, 
+  informationRates = infoRates1, 
+  maxNumberOfEvents = d_fin, 
+  allocationRatioPlanned = 1,
+  boundaryEffectScaleLower = boundaryEffectScaleLower,
+  boundaryEffectScaleUpper = boundaryEffectScaleUpper,
+  seed = 12)
+
+# crude lower CI by simply adjusting the naive lower CI
+# (as proposed by Pinheiro & deMets)
+biasCorrectGroupSeqSurvival(
+  hazardRatioMLE = exp(log_est1_lower), 
+  stopstage = 1, 
+  type = "global",
+  n = 1E6, 
+  informationRates = infoRates1, 
+  maxNumberOfEvents = d_fin, 
+  allocationRatioPlanned = 1,
+  boundaryEffectScaleLower = boundaryEffectScaleLower,
+  boundaryEffectScaleUpper = boundaryEffectScaleUpper,
+  seed = 12)
+
+# crude upper CI by simply adjusting the naive upper CI
+# (as proposed by Pinheiro & deMets)
+biasCorrectGroupSeqSurvival(
+  hazardRatioMLE = exp(log_est1_upper), 
+  stopstage = 1, 
+  type = "global",
+  n = 1E6, 
+  informationRates = infoRates1, 
+  maxNumberOfEvents = d_fin, 
+  allocationRatioPlanned = 1,
+  boundaryEffectScaleLower = boundaryEffectScaleLower,
+  boundaryEffectScaleUpper = boundaryEffectScaleUpper,
+  seed = 12)
+```
+
+### Conditional bias adjusted estimator via simulation {-}
+
+```{r ex2_conditional}
+#-  Conditional bias adjusted estimator via simulation
+
+# estimator
+biasCorrectGroupSeqSurvival(
+  hazardRatioMLE = exp(log_est1), 
+  stopstage = 1, 
+  type = "stagewise",
+  n = 1E6, 
+  informationRates = infoRates1, 
+  maxNumberOfEvents = d_fin, 
+  allocationRatioPlanned = 1,
+  boundaryEffectScaleLower = boundaryEffectScaleLower,
+  boundaryEffectScaleUpper = boundaryEffectScaleUpper,
+  seed = 12)
+
+# Get crude lower CI by simply adjusting the naive lower CI 
+biasCorrectGroupSeqSurvival(
+  hazardRatioMLE = exp(log_est1_lower), 
+  stopstage = 1, 
+  type = "stagewise",
+  n = 1E6, 
+  informationRates = infoRates1, 
+  maxNumberOfEvents = d_fin, 
+  allocationRatioPlanned = 1,
+  boundaryEffectScaleLower = boundaryEffectScaleLower,
+  boundaryEffectScaleUpper = boundaryEffectScaleUpper,
+  seed = 12)
+
+# Get crude upper CI by simply adjusting the naive upper CI 
+biasCorrectGroupSeqSurvival(
+  hazardRatioMLE = exp(log_est1_upper), 
+  stopstage = 1, 
+  type = "stagewise",
+  n = 1E6, 
+  informationRates = infoRates1, 
+  maxNumberOfEvents = d_fin, 
+  allocationRatioPlanned = 1,
+  boundaryEffectScaleLower = boundaryEffectScaleLower,
+  boundaryEffectScaleUpper = boundaryEffectScaleUpper,
+  seed = 12)
+```
+
+## Results for overall survival (OS) {-}
+
+```{r ex2_OS}
+#- secondary endpoint OS
+#- 232 events total -> 80% power for HR=0.69
+#- IA at 50% and 75% IF
+#- Results for IA after 116 events (50%); 
+#- observed IA log(HR)=log(0.67); SE = sqrt(4/116)
+
+#- Group-sequential design
+infoRates2 <- c(0.5, 0.75, 1)
+
+d2 <- getDesignGroupSequential(
+  informationRates = infoRates2,typeOfDesign = "asOF",
+  sided=2, alpha = 0.05, beta = 0.2)
+
+summary(d2)
+
+#- naive inference
+log_est2 <- log(0.67)
+se2 <- sqrt(4/116)
+
+exp(log_est2+c(0,-1,1)*qnorm(0.975)*se2) # estimate and CI
+
+2*pnorm(log_est2/se2) # 2-sided p-value
+
+# Repeated CI and p-value
+r2 <- getDataSet(
+  overallEvents = c(116),
+  overallLogRanks = c(log_est2/se2),
+  overallAllocationRatio = c(1)
+)
+
+adj_r2 <- getAnalysisResults(
+  design = d2,
+  dataInput = r2
+)
+
+summary(adj_r2)
+```
+
+# Example 3: A three-arm trial of two active doses versus placebo in adults with obesity {-}
+
+```{r ex3_unadj}
+#------------------- Unadjusted trial results 
+
+endpoints <- c("WL26_D1", "WL26_D2", "WL52_D1", "WL52_D2")
+estimate <- c(-10, -5.1, -15, -15)
+se <- c(10, 10, 10, 10)/(2*qnorm(0.975))
+
+#- one-sided p-value
+p_values_greater <- 1-pnorm(estimate/se)
+p_values_less <- pnorm(estimate/se)
+
+#- per comparison two-sided CI and p-values 
+data.frame(
+  endpoints,
+  estimate, 
+  ci_lower_unadj = estimate-qnorm(0.975)*se, 
+  ci_upper_unadj = estimate+qnorm(0.975)*se, 
+  p_value_2sided_adj  = 2*pmin(p_values_greater, p_values_less))
+```
+
+```{r ex3_adj}
+#------------------- Adjusted trial results (including week 26&52 data}
+
+#- Define transition matrix and weights of the graphical multiple comparisons procedure 
+transitions <- rbind(
+  c(0, 0.5, 0.5, 0),
+  c(0.5, 0, 0, 0.5),
+  c(0, 1, 0, 0),
+  c(1, 0, 0, 0)
+)
+
+weights <- c(0.5, 0.5, 0, 0)
+
+three_arm_graph <- matrix2graph(transitions, weights)
+
+# plot graph (one-sided at overall level 0.025)
+hGraph(
+  nHypotheses = 4,
+  nameHypotheses = endpoints,
+  alphaHypotheses = c(0.025/2, 0.025/2, 0, 0),
+  m = transitions
+)
+
+#- Calculate adjusted p-values 
+
+# direction "greater"
+result_greater <- gMCP(
+  graph = three_arm_graph, 
+  pvalues = p_values_greater, 
+  alpha = 0.025
+)
+
+result_greater@adjPValues # one-sided 
+
+#(direction "less")
+result_less <- gMCP(
+  graph = three_arm_graph, 
+  pvalues = p_values_less, 
+  alpha = 0.025
+)
+
+result_less@adjPValues # one-sided 
+
+#- Calculate simultaneous confidence intervals 
+
+# One-sided 97.5% CI, direction "greater"
+ci_results_greater <- simConfint(
+  object = three_arm_graph, 
+  pvalues = p_values_greater, 
+  confint = "normal",       
+  estimates = estimate, 
+  alpha = 0.025,
+  alternative = "greater" 
+)
+
+ci_results_greater
+
+# One-sided 97.5% CI, direction "less"
+ci_results_less <- simConfint(
+  object = three_arm_graph, 
+  pvalues = p_values_less, 
+  confint = "normal",       
+  estimates = estimate, 
+  alpha = 0.025,
+  alternative = "less" 
+)
+
+ci_results_less
+
+#- Unadjusted two-sided CI (intersection of the two one-sided CI) and 
+#- two-sided p-value
+data.frame(
+  endpoints, 
+  estimate = estimate,
+  ci_lower_adj = ci_results_greater[, "lower bound"], 
+  ci_upper_adj = ci_results_less[, "upper bound"], 
+  p_value_2sided_adj  = 2*pmin(result_greater@adjPValues,result_less@adjPValues)
+)
+```
+
+```{r ex3_adj_w26}
+#------------------- Adjusted trial results (including only week 26}
+
+endpoints <- c("WL26_D1", "WL26_D2")
+estimate <- c(-10, -5.1)
+se <- c(10, 10)/(2*qnorm(0.975))
+
+p_values_greater <- 1-pnorm(estimate/se)
+p_values_less <- pnorm(estimate/se)
+
+#- Define transition matrix and weights of the graphical multiple comparisons procedure 
+transitions <- rbind(
+  c(0, 0.5),
+  c(0.5, 0)
+)
+
+weights <- c(0.5, 0.5)
+
+three_arm_graph_w26 <- matrix2graph(transitions, weights)
+
+# plot graph (one-sided at overall level 0.025)
+hGraph(
+  nHypotheses = 4,
+  nameHypotheses = endpoints,
+  alphaHypotheses = c(0.025/2, 0.025/2),
+  m = transitions
+)
+
+#- Calculate adjusted p-values 
+
+# direction "greater"
+result_greater <- gMCP(
+  graph = three_arm_graph_w26, 
+  pvalues = p_values_greater, 
+  alpha = 0.025
+)
+
+result_greater@adjPValues # one-sided 
+
+#(direction "less")
+result_less <- gMCP(
+  graph = three_arm_graph_w26, 
+  pvalues = p_values_less, 
+  alpha = 0.025
+)
+
+result_less@adjPValues # one-sided 
+
+#- Calculate simultaneous confidence intervals 
+
+# One-sided 97.5% CI, direction "greater"
+ci_results_greater <- simConfint(
+  object = three_arm_graph_w26, 
+  pvalues = p_values_greater, 
+  confint = "normal",       
+  estimates = estimate, 
+  alpha = 0.025,
+  alternative = "greater" 
+)
+
+ci_results_greater
+
+# One-sided 97.5% CI, direction "less"
+ci_results_less <- simConfint(
+  object = three_arm_graph_w26, 
+  pvalues = p_values_less, 
+  confint = "normal",       
+  estimates = estimate, 
+  alpha = 0.025,
+  alternative = "less" 
+)
+
+ci_results_less
+
+#- Unadjusted two-sided CI (intersection of the two one-sided CI) and 
+#- two-sided p-value
+data.frame(
+  endpoints, 
+  estimate = estimate,
+  ci_lower_adj = ci_results_greater[, "lower bound"], 
+  ci_upper_adj = ci_results_less[, "upper bound"], 
+  p_value_2sided_adj  = 2*pmin(result_greater@adjPValues,result_less@adjPValues)
+)
+```
+
+# Appendix: R functions used to calculate bias-adjusted estimators in example 2 {-}
+
+```{r, file="biasCorrectGroupSeqSurvival.R", eval=FALSE, echo=TRUE}
+```
+
