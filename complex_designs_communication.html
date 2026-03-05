@@ -56,7 +56,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="complex_designs_communication_files/libs/clipboard/clipboard.min.js"></script>
@@ -84,17 +103,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">1</span> Background</a></li>
   <li><a href="#purpose-of-this-document" id="toc-purpose-of-this-document" class="nav-link" data-scroll-target="#purpose-of-this-document"><span class="header-section-number">2</span> Purpose of this document</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">3</span> Setup</a></li>
-  <li><a href="#example-1-a-randomized-trial-in-early-alzheimers-disease-with-hierarchical-testing" id="toc-example-1-a-randomized-trial-in-early-alzheimers-disease-with-hierarchical-testing" class="nav-link" data-scroll-target="#example-1-a-randomized-trial-in-early-alzheimers-disease-with-hierarchical-testing">Example 1: A randomized trial in early Alzheimer’s disease with hierarchical testing</a>
-  <ul class="collapse">
-  <li><a href="#reproduce-numbers-in-table-1" id="toc-reproduce-numbers-in-table-1" class="nav-link" data-scroll-target="#reproduce-numbers-in-table-1"><span class="header-section-number">3.1</span> Reproduce numbers in Table 1</a></li>
-  </ul></li>
+  <li><a href="#example-1-a-randomized-trial-in-early-alzheimers-disease-with-hierarchical-testing" id="toc-example-1-a-randomized-trial-in-early-alzheimers-disease-with-hierarchical-testing" class="nav-link" data-scroll-target="#example-1-a-randomized-trial-in-early-alzheimers-disease-with-hierarchical-testing">Example 1: A randomized trial in early Alzheimer’s disease with hierarchical testing</a></li>
   <li><a href="#example-2-a-group-sequential-trial-with-hierarchical-testing-in-oncology" id="toc-example-2-a-group-sequential-trial-with-hierarchical-testing-in-oncology" class="nav-link" data-scroll-target="#example-2-a-group-sequential-trial-with-hierarchical-testing-in-oncology">Example 2: A group-sequential trial with hierarchical testing in oncology</a>
   <ul class="collapse">
   <li><a href="#results-for-progression-free-survival-pfs" id="toc-results-for-progression-free-survival-pfs" class="nav-link" data-scroll-target="#results-for-progression-free-survival-pfs">Results for progression-free survival (PFS)</a></li>
   <li><a href="#results-for-overall-survival-os" id="toc-results-for-overall-survival-os" class="nav-link" data-scroll-target="#results-for-overall-survival-os">Results for overall survival (OS)</a></li>
   </ul></li>
-  <li><a href="#example-3-a-three-arm-trial-of-two-active-doses-versus-placebo-in-adults-with-obesity" id="toc-example-3-a-three-arm-trial-of-two-active-doses-versus-placebo-in-adults-with-obesity" class="nav-link" data-scroll-target="#example-3-a-three-arm-trial-of-two-active-doses-versus-placebo-in-adults-with-obesity">Example 3: A three-arm trial of two active doses versus placebo in adults with obesity</a></li>
-  <li><a href="#appendix-r-functions-used-to-calculate-bias-adjusted-estimators-in-example-2" id="toc-appendix-r-functions-used-to-calculate-bias-adjusted-estimators-in-example-2" class="nav-link" data-scroll-target="#appendix-r-functions-used-to-calculate-bias-adjusted-estimators-in-example-2">Appendix: R functions used to calculate bias-adjusted estimators in example 2</a></li>
+  <li><a href="#example-3-a-three-arm-trial-of-two-active-doses-versus-placebo-in-adults-with-obesity" id="toc-example-3-a-three-arm-trial-of-two-active-doses-versus-placebo-in-adults-with-obesity" class="nav-link" data-scroll-target="#example-3-a-three-arm-trial-of-two-active-doses-versus-placebo-in-adults-with-obesity">Example 3: A three-arm trial of two active doses versus placebo in adults with obesity</a>
+  <ul class="collapse">
+  <li><a href="#unadjusted-trial-results" id="toc-unadjusted-trial-results" class="nav-link" data-scroll-target="#unadjusted-trial-results"><span class="header-section-number">3.1</span> Unadjusted trial results</a></li>
+  <li><a href="#results-including-data-of-week-26-52" id="toc-results-including-data-of-week-26-52" class="nav-link" data-scroll-target="#results-including-data-of-week-26-52"><span class="header-section-number">3.2</span> Results including data of Week 26 &amp; 52</a></li>
+  <li><a href="#trial-results-adjusting-for-doses-only-week-26" id="toc-trial-results-adjusting-for-doses-only-week-26" class="nav-link" data-scroll-target="#trial-results-adjusting-for-doses-only-week-26"><span class="header-section-number">3.3</span> Trial results adjusting for doses, only Week 26</a></li>
+  </ul></li>
+  <li><a href="#appendix-r-functions-used-to-calculate-bias-adjusted-estimators-in-example-2" id="toc-appendix-r-functions-used-to-calculate-bias-adjusted-estimators-in-example-2" class="nav-link" data-scroll-target="#appendix-r-functions-used-to-calculate-bias-adjusted-estimators-in-example-2">Appendix: R functions used to calculate bias-adjusted estimators in Example 2</a></li>
   </ul>
 </nav>
 </div>
@@ -133,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="background" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Background</h1>
-<p>Code for the paper <em>Communicating results in trials with multiple hypotheses or adaptive design features</em>, Asikanius et al. <span class="citation" data-cites="asikanius_26">(<a href="#ref-asikanius_26" role="doc-biblioref"><strong>asikanius_26?</strong></a>)</span>, written by an author team of statisticians from regulators, academia, and industry.</p>
+<p>Code for the paper <em>Communicating results in trials with multiple hypotheses or adaptive design features</em>, Asikanius et al. <span class="citation" data-cites="asikanius_26">(<a href="#ref-asikanius_26" role="doc-biblioref">2026</a>)</span>, written by an author team of statisticians from regulators, academia, and industry.</p>
 </section>
 <section id="purpose-of-this-document" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Purpose of this document</h1>
@@ -148,13 +169,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpact)    <span class="co"># group-sequential and adaptive trials</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Source functions for calculating bias-adjusted estimators in GS trials via simulation</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"biasCorrectGroupSeqSurvival.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"biasCorrectGroupSeqSurvival.r"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="example-1-a-randomized-trial-in-early-alzheimers-disease-with-hierarchical-testing" class="level1 unnumbered">
 <h1 class="unnumbered">Example 1: A randomized trial in early Alzheimer’s disease with hierarchical testing</h1>
-<section id="reproduce-numbers-in-table-1" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="reproduce-numbers-in-table-1"><span class="header-section-number">3.1</span> Reproduce numbers in Table 1</h2>
+<p>In this section we reproduce numbers in Table 1 of the paper.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted trial results </span></span>
@@ -308,9 +328,9 @@ H3                 0.09</code></pre>
 </div>
 </div>
 </section>
-</section>
 <section id="example-2-a-group-sequential-trial-with-hierarchical-testing-in-oncology" class="level1 unnumbered">
 <h1 class="unnumbered">Example 2: A group-sequential trial with hierarchical testing in oncology</h1>
+<p>In this section we reproduce numbers in Table 2 of the paper.</p>
 <section id="results-for-progression-free-survival-pfs" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="results-for-progression-free-survival-pfs">Results for progression-free survival (PFS)</h2>
 <section id="trial-design" class="level3">
@@ -496,40 +516,42 @@ H3                 0.09</code></pre>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>log_est1_upper <span class="ot">&lt;-</span> log_est1 <span class="sc">+</span> za <span class="sc">*</span> se1</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate and CI</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">c</span>(log_est1, log_est1_lower, log_est1_upper)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">exp</span>(<span class="fu">c</span>(log_est1, log_est1_lower, log_est1_upper)) , <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6100000 0.4438607 0.8383260</code></pre>
+<pre><code>[1] 0.61 0.44 0.84</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2-sided p-value</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(log_est1 <span class="sc">/</span> se1) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(log_est1 <span class="sc">/</span> se1) , <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.002311014</code></pre>
+<pre><code>[1] 0.002</code></pre>
 </div>
 </div>
 </section>
 <section id="inference-based-on-stagewise-ordering" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="inference-based-on-stagewise-ordering">Inference based on stagewise ordering</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- Median unbiased estimator, CI, p-value based on stage-wise ordering as well as repeated CI and </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#- p-value with rpact</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#-</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#- !! For rpact v4.30, the "Final p-value" (i.e. p-value based on stage-wise ordering) </span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#-    is reported  as 0.9988 in the output below but it should rather be </span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#-    1-0.9988 = 0.0012 instead. </span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#-    [See https://github.com/rpact-com/rpact/issues/114 which will hopefully be </span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#-    fixed soon]</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">getDataSet</span>(</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallEvents =</span> <span class="fu">c</span>(d_int),</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallLogRanks =</span> <span class="fu">c</span>(log_est1<span class="sc">/</span>se1),</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallAllocationRatio =</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>adj_r1 <span class="ot">&lt;-</span> <span class="fu">getAnalysisResults</span>(</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">design =</span> d1,</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataInput =</span> r1</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(adj_r1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Median unbiased estimator, CI, p-value</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># all based on stage-wise ordering</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># repeated CI and p-value with rpact</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># !! For rpact v4.30, the "Final p-value" (i.e. p-value based on stage-wise ordering) </span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#    is reported  as 0.9988 in the output below but it should rather be </span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    1-0.9988 = 0.0012 instead. </span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#    [See https://github.com/rpact-com/rpact/issues/114 which will hopefully be </span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#    fixed soon]</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">getDataSet</span>(</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallEvents =</span> <span class="fu">c</span>(d_int),</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallLogRanks =</span> <span class="fu">c</span>(log_est1 <span class="sc">/</span> se1),</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallAllocationRatio =</span> <span class="dv">1</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>adj_r1 <span class="ot">&lt;-</span> <span class="fu">getAnalysisResults</span>(</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">design =</span> d1, <span class="at">dataInput =</span> r1</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(adj_r1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><em>Analysis results for a survival endpoint</em></p>
 <p>Sequential analysis with 2 looks (group sequential design), two-sided overall significance level 5%. The results were calculated using a two-sample logrank test. H0: hazard ratio = 1 against H1: hazard ratio != 1.</p>
@@ -622,110 +644,107 @@ H3                 0.09</code></pre>
 </div>
 </div>
 </section>
-<section id="global-bias-adjusted-estimator-via-simulation" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="global-bias-adjusted-estimator-via-simulation">Global bias adjusted estimator via simulation</h3>
+<section id="unconditional-global-bias-adjusted-estimator-via-simulation" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="unconditional-global-bias-adjusted-estimator-via-simulation">Unconditional (global) bias adjusted estimator via simulation</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>boundaryEffectScaleLower <span class="ot">&lt;-</span> s1<span class="sc">$</span>criticalValuesEffectScaleLower[,<span class="dv">1</span>]</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>boundaryEffectScaleUpper <span class="ot">&lt;-</span> s1<span class="sc">$</span>criticalValuesEffectScaleUpper[,<span class="dv">1</span>]</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># estimator</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1), </span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"global"</span>,</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fl">1E6</span>, </span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>nsim <span class="ot">&lt;-</span> <span class="fl">1E6</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>seed <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># estimator</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>uncond_est <span class="ot">&lt;-</span> <span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1), </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"global"</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> nsim, </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> seed)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># crude lower CI by simply adjusting the naive lower CI</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="co"># (as proposed by Pinheiro &amp; deMets)</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>uncond_low <span class="ot">&lt;-</span> <span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1_lower), </span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"global"</span>,</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> nsim, </span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> seed)</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="co"># crude upper CI by simply adjusting the naive upper CI</span></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a><span class="co"># (as proposed by Pinheiro &amp; deMets)</span></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>uncond_up <span class="ot">&lt;-</span> <span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1_upper), </span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"global"</span>,</span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> nsim, </span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> seed)</span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(uncond_est, uncond_low, uncond_up), <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6224836</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># crude lower CI by simply adjusting the naive lower CI</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (as proposed by Pinheiro &amp; deMets)</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1_lower), </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"global"</span>,</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fl">1E6</span>, </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4443106</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># crude upper CI by simply adjusting the naive upper CI</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (as proposed by Pinheiro &amp; deMets)</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1_upper), </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"global"</span>,</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fl">1E6</span>, </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8444637</code></pre>
+<pre><code>[1] 0.62 0.44 0.84</code></pre>
 </div>
 </div>
 </section>
 <section id="conditional-bias-adjusted-estimator-via-simulation" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="conditional-bias-adjusted-estimator-via-simulation">Conditional bias adjusted estimator via simulation</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-  Conditional bias adjusted estimator via simulation</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimator</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1), </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"stagewise"</span>,</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fl">1E6</span>, </span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimator</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>cond_est <span class="ot">&lt;-</span> <span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1), </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"stagewise"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> nsim, </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> seed)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># crude lower CI by simply adjusting the naive lower CI </span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>cond_low <span class="ot">&lt;-</span> <span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1_lower), </span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"stagewise"</span>,</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> nsim, </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> seed)</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="co"># crude upper CI by simply adjusting the naive upper CI </span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>cond_up <span class="ot">&lt;-</span> <span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1_upper), </span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"stagewise"</span>,</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> nsim, </span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> seed)</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(cond_est, cond_low, cond_up), <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.7818528</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get crude lower CI by simply adjusting the naive lower CI </span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1_lower), </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"stagewise"</span>,</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fl">1E6</span>, </span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4452537</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get crude upper CI by simply adjusting the naive upper CI </span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biasCorrectGroupSeqSurvival</span>(</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">hazardRatioMLE =</span> <span class="fu">exp</span>(log_est1_upper), </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">stopstage =</span> <span class="dv">1</span>, </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"stagewise"</span>,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fl">1E6</span>, </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates1, </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">maxNumberOfEvents =</span> d_fin, </span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> boundaryEffectScaleLower,</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleUpper =</span> boundaryEffectScaleUpper,</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9773793</code></pre>
+<pre><code>[1] 0.78 0.45 0.98</code></pre>
 </div>
 </div>
 </section>
@@ -733,91 +752,74 @@ H3                 0.09</code></pre>
 <section id="results-for-overall-survival-os" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="results-for-overall-survival-os">Results for overall survival (OS)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- secondary endpoint OS</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#- 232 events total -&gt; 80% power for HR=0.69</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#- IA at 50% and 75% IF</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#- Results for IA after 116 events (50%); </span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co">#- observed IA log(HR)=log(0.67); SE = sqrt(4/116)</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">#- Group-sequential design</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>infoRates2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>)</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">getDesignGroupSequential</span>(</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">informationRates =</span> infoRates2,<span class="at">typeOfDesign =</span> <span class="st">"asOF"</span>,</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sided=</span><span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>, <span class="at">beta =</span> <span class="fl">0.2</span>)</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(d2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><em>Sequential analysis with a maximum of 3 looks (group sequential design)</em></p>
-<p>O’Brien &amp; Fleming type alpha spending design, two-sided overall significance level 5%, power 80%, undefined endpoint, inflation factor 1.0196, ASN H1 0.8392, ASN H01 0.9798, ASN H0 1.0139.</p>
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th>Stage</th>
-<th>1</th>
-<th>2</th>
-<th>3</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Planned information rate</td>
-<td>50%</td>
-<td>75%</td>
-<td>100%</td>
-</tr>
-<tr class="even">
-<td>Cumulative alpha spent</td>
-<td>0.0031</td>
-<td>0.0193</td>
-<td>0.0500</td>
-</tr>
-<tr class="odd">
-<td>Stage levels (two-sided)</td>
-<td>0.0031</td>
-<td>0.0183</td>
-<td>0.0440</td>
-</tr>
-<tr class="even">
-<td>Efficacy boundary (z-value scale)</td>
-<td>2.963</td>
-<td>2.359</td>
-<td>2.014</td>
-</tr>
-<tr class="odd">
-<td>Cumulative power</td>
-<td>0.1680</td>
-<td>0.5400</td>
-<td>0.8000</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- naive inference</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>log_est2 <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fl">0.67</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>se2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">4</span><span class="sc">/</span><span class="dv">116</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(log_est2<span class="sc">+</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se2) <span class="co"># estimate and CI</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># secondary endpoint: OS</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 233 events -&gt; 80% power for HR = 0.69</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># IA at 50% and 75% IF</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Results for IA after 117 events (50%):</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   log(HR) = log(0.67)</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   SE = sqrt(4 / 117)</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># trial design</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>za <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>hr_os <span class="ot">&lt;-</span> <span class="fl">0.69</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>infoRates2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co"># number of events</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">getDesignGroupSequential</span>(<span class="at">informationRates =</span> infoRates2,</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">typeOfDesign =</span> <span class="st">"asOF"</span>, <span class="at">sided =</span> <span class="dv">2</span>, </span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">alpha =</span> alpha)</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>ss_os <span class="ot">&lt;-</span> <span class="fu">getSampleSizeSurvival</span>(<span class="at">design =</span> d2, <span class="at">median2 =</span> <span class="dv">100</span>, </span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>                               <span class="at">hazardRatio =</span> hr_os,</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>                               <span class="at">maxNumberOfSubjects =</span> <span class="dv">2000</span>)</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="co"># number of events</span></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>d_os <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">as.vector</span>(ss_os<span class="sc">$</span>eventsPerStage))</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>d_os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6700000 0.4655975 0.9641375</code></pre>
+<pre><code>[1] 117 175 233</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(log_est2<span class="sc">/</span>se2) <span class="co"># 2-sided p-value</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>d_int_os <span class="ot">&lt;-</span> d_os[<span class="dv">1</span>]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># naive inference</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>log_est2 <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fl">0.67</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>se2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">4</span> <span class="sc">/</span> d_int_os)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate and CI</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">exp</span>(log_est2 <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> za <span class="sc">*</span> se2) , <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0310339</code></pre>
+<pre><code>[1] 0.67 0.47 0.96</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeated CI and p-value</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">getDataSet</span>(</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallEvents =</span> <span class="fu">c</span>(<span class="dv">116</span>),</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallLogRanks =</span> <span class="fu">c</span>(log_est2<span class="sc">/</span>se2),</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallAllocationRatio =</span> <span class="fu">c</span>(<span class="dv">1</span>)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>adj_r2 <span class="ot">&lt;-</span> <span class="fu">getAnalysisResults</span>(</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">design =</span> d2,</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataInput =</span> r2</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(adj_r2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2-sided p-value</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(log_est2<span class="sc">/</span>se2) , <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeated CI and p-value</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">getDataSet</span>(</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallEvents =</span> <span class="fu">c</span>(d_int_os),</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallLogRanks =</span> <span class="fu">c</span>(log_est2 <span class="sc">/</span> se2),</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">overallAllocationRatio =</span> <span class="dv">1</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>adj_r2 <span class="ot">&lt;-</span> <span class="fu">getAnalysisResults</span>(</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">design =</span> d2,</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">dataInput =</span> r2</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(adj_r2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><em>Analysis results for a survival endpoint</em></p>
 <p>Sequential analysis with 3 looks (group sequential design), two-sided overall significance level 5%. The results were calculated using a two-sample logrank test. H0: hazard ratio = 1 against H1: hazard ratio != 1.</p>
@@ -869,13 +871,13 @@ H3                 0.09</code></pre>
 </tr>
 <tr class="even">
 <td>Overall test statistic</td>
-<td>-2.157</td>
+<td>-2.166</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>Overall p-value</td>
-<td>0.9845</td>
+<td>0.9848</td>
 <td></td>
 <td></td>
 </tr>
@@ -887,19 +889,19 @@ H3                 0.09</code></pre>
 </tr>
 <tr class="odd">
 <td>Conditional rejection probability</td>
-<td>0.2899</td>
+<td>0.2936</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
 <td>95% repeated confidence interval</td>
-<td>[0.387; 1.161]</td>
+<td>[0.387; 1.159]</td>
 <td></td>
 <td></td>
 </tr>
 <tr class="odd">
 <td>Repeated p-value</td>
-<td>0.1741</td>
+<td>0.1719</td>
 <td></td>
 <td></td>
 </tr>
@@ -911,336 +913,356 @@ H3                 0.09</code></pre>
 </section>
 <section id="example-3-a-three-arm-trial-of-two-active-doses-versus-placebo-in-adults-with-obesity" class="level1 unnumbered">
 <h1 class="unnumbered">Example 3: A three-arm trial of two active doses versus placebo in adults with obesity</h1>
+<p>In this section we reproduce numbers in Table 3 of the paper.</p>
+<section id="unadjusted-trial-results" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="unadjusted-trial-results"><span class="header-section-number">3.1</span> Unadjusted trial results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#------------------- Unadjusted trial results </span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>endpoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"WL26_D1"</span>, <span class="st">"WL26_D2"</span>, <span class="st">"WL52_D1"</span>, <span class="st">"WL52_D2"</span>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>estimate <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="sc">-</span><span class="fl">5.1</span>, <span class="sc">-</span><span class="dv">15</span>, <span class="sc">-</span><span class="dv">15</span>)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)<span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span><span class="fu">qnorm</span>(<span class="fl">0.975</span>))</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#- one-sided p-value</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>p_values_greater <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(estimate<span class="sc">/</span>se)</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>p_values_less <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(estimate<span class="sc">/</span>se)</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co">#- per comparison two-sided CI and p-values </span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  endpoints,</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  estimate, </span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_unadj =</span> estimate<span class="sc">-</span><span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se, </span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_unadj =</span> estimate<span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span>se, </span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj  =</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pmin</span>(p_values_greater, p_values_less))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted trial results </span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>za <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>endpoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"WL26_D1"</span>, <span class="st">"WL26_D2"</span>, <span class="st">"WL52_D1"</span>, <span class="st">"WL52_D2"</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>estimate <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="sc">-</span><span class="fl">5.1</span>, <span class="sc">-</span><span class="dv">15</span>, <span class="sc">-</span><span class="dv">15</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> za)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># one-sided p-value</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>p_values_less <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(estimate <span class="sc">/</span> se)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>p_values_greater <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p_values_less</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co"># per comparison two-sided CI and p-values </span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  endpoints,</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>  estimate, </span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_unadj =</span> estimate <span class="sc">-</span> za <span class="sc">*</span> se, </span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_unadj =</span> estimate <span class="sc">+</span> za <span class="sc">*</span> se, </span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(p_values_greater, p_values_less),</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r =</span> <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(p_values_greater, p_values_less), <span class="dv">2</span>)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  endpoints estimate ci_lower_unadj ci_upper_unadj p_value_2sided_adj
 1   WL26_D1    -10.0          -15.0           -5.0       8.857544e-05
 2   WL26_D2     -5.1          -10.1           -0.1       4.559069e-02
 3   WL52_D1    -15.0          -20.0          -10.0       4.105344e-09
-4   WL52_D2    -15.0          -20.0          -10.0       4.105344e-09</code></pre>
+4   WL52_D2    -15.0          -20.0          -10.0       4.105344e-09
+  p_value_2sided_adj_r
+1              8.9e-05
+2                0.046
+3              4.1e-09
+4              4.1e-09</code></pre>
 </div>
 </div>
+</section>
+<section id="results-including-data-of-week-26-52" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="results-including-data-of-week-26-52"><span class="header-section-number">3.2</span> Results including data of Week 26 &amp; 52</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#------------------- Adjusted trial results (including week 26&amp;52 data}</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co">#- Define transition matrix and weights of the graphical multiple comparisons procedure </span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>transitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>),</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>),</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>three_arm_graph <span class="ot">&lt;-</span> <span class="fu">matrix2graph</span>(transitions, weights)</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot graph (one-sided at overall level 0.025)</span></span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="fu">hGraph</span>(</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">nHypotheses =</span> <span class="dv">4</span>,</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">nameHypotheses =</span> endpoints,</span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphaHypotheses =</span> <span class="fu">c</span>(<span class="fl">0.025</span><span class="sc">/</span><span class="dv">2</span>, <span class="fl">0.025</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> transitions</span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusted trial results </span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># including week 26 &amp; 52 data</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># transition matrix and weights of the graphical multiple comparisons procedure </span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>transitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>),</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>three_arm_graph <span class="ot">&lt;-</span> <span class="fu">matrix2graph</span>(transitions, weights)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co"># plot graph (one-sided at overall level 0.025)</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.025</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="fu">hGraph</span>(</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">nHypotheses =</span> <span class="dv">4</span>,</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">nameHypotheses =</span> endpoints,</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphaHypotheses =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> transitions</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="complex_designs_communication_files/figure-html/ex3_adj-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- Calculate adjusted p-values </span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># direction "greater"</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>result_greater <span class="ot">&lt;-</span> <span class="fu">gMCP</span>(</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> three_arm_graph, </span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_greater, </span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.025</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>result_greater<span class="sc">@</span>adjPValues <span class="co"># one-sided </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>H1 H2 H3 H4 
- 1  1  1  1 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#(direction "less")</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>result_less <span class="ot">&lt;-</span> <span class="fu">gMCP</span>(</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> three_arm_graph, </span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_less, </span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.025</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>result_less<span class="sc">@</span>adjPValues <span class="co"># one-sided </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          H1           H2           H3           H4 
-8.857544e-05 2.279535e-02 8.857544e-05 2.279535e-02 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- Calculate simultaneous confidence intervals </span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sided 97.5% CI, direction "greater"</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>ci_results_greater <span class="ot">&lt;-</span> <span class="fu">simConfint</span>(</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> three_arm_graph, </span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_greater, </span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">confint =</span> <span class="st">"normal"</span>,       </span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimates =</span> estimate, </span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.025</span>,</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"greater"</span> </span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>ci_results_greater</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     lower bound estimate upper bound
-[1,]   -15.71797    -10.0         Inf
-[2,]   -10.81797     -5.1         Inf
-[3,]        -Inf    -15.0         Inf
-[4,]        -Inf    -15.0         Inf</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sided 97.5% CI, direction "less"</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>ci_results_less <span class="ot">&lt;-</span> <span class="fu">simConfint</span>(</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> three_arm_graph, </span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_less, </span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">confint =</span> <span class="st">"normal"</span>,       </span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimates =</span> estimate, </span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.025</span>,</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"less"</span> </span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>ci_results_less</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     lower bound estimate upper bound
-[1,]        -Inf    -10.0   -4.282031
-[2,]        -Inf     -5.1    0.000000
-[3,]        -Inf    -15.0    0.000000
-[4,]        -Inf    -15.0    0.000000</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- Unadjusted two-sided CI (intersection of the two one-sided CI) and </span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="co">#- two-sided p-value</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  endpoints, </span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> estimate,</span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_adj =</span> ci_results_greater[, <span class="st">"lower bound"</span>], </span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_adj =</span> ci_results_less[, <span class="st">"upper bound"</span>], </span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj  =</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues,result_less<span class="sc">@</span>adjPValues)</span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusted p-values </span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># direction "greater"</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>result_greater <span class="ot">&lt;-</span> <span class="fu">gMCP</span>(</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> three_arm_graph, </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_greater, </span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co"># direction "less"</span></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>result_less <span class="ot">&lt;-</span> <span class="fu">gMCP</span>(</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> three_arm_graph, </span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_less, </span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="co"># simultaneous confidence intervals </span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sided 97.5% CI</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a><span class="co"># direction "greater"</span></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>ci_results_greater <span class="ot">&lt;-</span> <span class="fu">simConfint</span>(</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> three_arm_graph, </span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_greater, </span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">confint =</span> <span class="st">"normal"</span>,       </span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimates =</span> estimate, </span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha,</span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"greater"</span> </span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sided 97.5% CI</span></span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a><span class="co"># direction "less"</span></span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>ci_results_less <span class="ot">&lt;-</span> <span class="fu">simConfint</span>(</span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> three_arm_graph, </span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_less, </span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">confint =</span> <span class="st">"normal"</span>,       </span>
+<span id="cb36-40"><a href="#cb36-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimates =</span> estimate, </span>
+<span id="cb36-41"><a href="#cb36-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha,</span>
+<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"less"</span> </span>
+<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a><span class="co"># unadjusted two-sided CI (intersection of the two one-sided CI) </span></span>
+<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a><span class="co"># and p-values, all two-sided</span></span>
+<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a>  endpoints, </span>
+<span id="cb36-52"><a href="#cb36-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> estimate,</span>
+<span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_adj =</span> <span class="fu">round</span>(ci_results_greater[, <span class="st">"lower bound"</span>], <span class="dv">1</span>), </span>
+<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_adj =</span> <span class="fu">round</span>(ci_results_less[, <span class="st">"upper bound"</span>], <span class="dv">1</span>), </span>
+<span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues, result_less<span class="sc">@</span>adjPValues),</span>
+<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r =</span> <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues, result_less<span class="sc">@</span>adjPValues), <span class="dv">2</span>)</span>
+<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   endpoints estimate ci_lower_adj ci_upper_adj p_value_2sided_adj
-H1   WL26_D1    -10.0    -15.71797    -4.282031       0.0001771509
-H2   WL26_D2     -5.1    -10.81797     0.000000       0.0455906919
-H3   WL52_D1    -15.0         -Inf     0.000000       0.0001771509
-H4   WL52_D2    -15.0         -Inf     0.000000       0.0455906919</code></pre>
+H1   WL26_D1    -10.0        -15.7         -4.3       0.0001771509
+H2   WL26_D2     -5.1        -10.8          0.0       0.0455906919
+H3   WL52_D1    -15.0         -Inf          0.0       0.0001771509
+H4   WL52_D2    -15.0         -Inf          0.0       0.0455906919
+   p_value_2sided_adj_r
+H1              0.00018
+H2              0.04559
+H3              0.00018
+H4              0.04559</code></pre>
 </div>
 </div>
+</section>
+<section id="trial-results-adjusting-for-doses-only-week-26" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="trial-results-adjusting-for-doses-only-week-26"><span class="header-section-number">3.3</span> Trial results adjusting for doses, only Week 26</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#------------------- Adjusted trial results (including only week 26}</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>endpoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"WL26_D1"</span>, <span class="st">"WL26_D2"</span>)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>estimate <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="sc">-</span><span class="fl">5.1</span>)</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>)<span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span><span class="fu">qnorm</span>(<span class="fl">0.975</span>))</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>p_values_greater <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">pnorm</span>(estimate<span class="sc">/</span>se)</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>p_values_less <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(estimate<span class="sc">/</span>se)</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co">#- Define transition matrix and weights of the graphical multiple comparisons procedure </span></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>transitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>)</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)</span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>three_arm_graph_w26 <span class="ot">&lt;-</span> <span class="fu">matrix2graph</span>(transitions, weights)</span>
-<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a><span class="co"># plot graph (one-sided at overall level 0.025)</span></span>
-<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a><span class="fu">hGraph</span>(</span>
-<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">nHypotheses =</span> <span class="dv">4</span>,</span>
-<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">nameHypotheses =</span> endpoints,</span>
-<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphaHypotheses =</span> <span class="fu">c</span>(<span class="fl">0.025</span><span class="sc">/</span><span class="dv">2</span>, <span class="fl">0.025</span><span class="sc">/</span><span class="dv">2</span>),</span>
-<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> transitions</span>
-<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusted trial results (including only week 26}</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>endpoints <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"WL26_D1"</span>, <span class="st">"WL26_D2"</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>estimate <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="sc">-</span><span class="fl">5.1</span>)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> za)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>p_values_less <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(estimate <span class="sc">/</span> se)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>p_values_greater <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> p_values_less</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co"># transition matrix and weights of the graphical multiple comparisons procedure </span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>transitions <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">0</span>)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>three_arm_graph_w26 <span class="ot">&lt;-</span> <span class="fu">matrix2graph</span>(transitions, weights)</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co"># plot graph (one-sided at overall level 0.025)</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.025</span></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="fu">hGraph</span>(</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">nHypotheses =</span> <span class="dv">4</span>,</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">nameHypotheses =</span> endpoints,</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">alphaHypotheses =</span> <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, alpha <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> transitions</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="complex_designs_communication_files/figure-html/ex3_adj_w26-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- Calculate adjusted p-values </span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co"># direction "greater"</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>result_greater <span class="ot">&lt;-</span> <span class="fu">gMCP</span>(</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> three_arm_graph_w26, </span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_greater, </span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.025</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>result_greater<span class="sc">@</span>adjPValues <span class="co"># one-sided </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>H1 H2 
- 1  1 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#(direction "less")</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>result_less <span class="ot">&lt;-</span> <span class="fu">gMCP</span>(</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> three_arm_graph_w26, </span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_less, </span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.025</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>result_less<span class="sc">@</span>adjPValues <span class="co"># one-sided </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          H1           H2 
-8.857544e-05 3.039379e-02 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- Calculate simultaneous confidence intervals </span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sided 97.5% CI, direction "greater"</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>ci_results_greater <span class="ot">&lt;-</span> <span class="fu">simConfint</span>(</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> three_arm_graph_w26, </span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_greater, </span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">confint =</span> <span class="st">"normal"</span>,       </span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimates =</span> estimate, </span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.025</span>,</span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"greater"</span> </span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>ci_results_greater</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     lower bound estimate upper bound
-[1,]   -15.71797    -10.0         Inf
-[2,]   -10.81797     -5.1         Inf</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sided 97.5% CI, direction "less"</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>ci_results_less <span class="ot">&lt;-</span> <span class="fu">simConfint</span>(</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> three_arm_graph_w26, </span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_less, </span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">confint =</span> <span class="st">"normal"</span>,       </span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimates =</span> estimate, </span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> <span class="fl">0.025</span>,</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"less"</span> </span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>ci_results_less</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     lower bound estimate upper bound
-[1,]        -Inf    -10.0   0.0000000
-[2,]        -Inf     -5.1   0.2069303</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#- Unadjusted two-sided CI (intersection of the two one-sided CI) and </span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="co">#- two-sided p-value</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  endpoints, </span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> estimate,</span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_adj =</span> ci_results_greater[, <span class="st">"lower bound"</span>], </span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_adj =</span> ci_results_less[, <span class="st">"upper bound"</span>], </span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj  =</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues,result_less<span class="sc">@</span>adjPValues)</span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># adjusted p-values </span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># direction "greater"</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>result_greater <span class="ot">&lt;-</span> <span class="fu">gMCP</span>(</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> three_arm_graph_w26, </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_greater, </span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co"># direction "less"</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>result_less <span class="ot">&lt;-</span> <span class="fu">gMCP</span>(</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph =</span> three_arm_graph_w26, </span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_less, </span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="co"># simultaneous confidence intervals </span></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sided 97.5% CI, direction "greater"</span></span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>ci_results_greater <span class="ot">&lt;-</span> <span class="fu">simConfint</span>(</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> three_arm_graph_w26, </span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_greater, </span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">confint =</span> <span class="st">"normal"</span>,       </span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimates =</span> estimate, </span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha,</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"greater"</span> </span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a><span class="co"># One-sided 97.5% CI, direction "less"</span></span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a>ci_results_less <span class="ot">&lt;-</span> <span class="fu">simConfint</span>(</span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> three_arm_graph_w26, </span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">pvalues =</span> p_values_less, </span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">confint =</span> <span class="st">"normal"</span>,       </span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimates =</span> estimate, </span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">alpha =</span> alpha,</span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"less"</span> </span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-43"><a href="#cb39-43" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb39-44"><a href="#cb39-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted CI (intersection of the two one-sided CI) and </span></span>
+<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value, all two-sided</span></span>
+<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------</span></span>
+<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a>  endpoints, </span>
+<span id="cb39-50"><a href="#cb39-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> estimate,</span>
+<span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_adj =</span> ci_results_greater[, <span class="st">"lower bound"</span>], </span>
+<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_adj =</span> ci_results_less[, <span class="st">"upper bound"</span>], </span>
+<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj  =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues,result_less<span class="sc">@</span>adjPValues),</span>
+<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r  =</span> <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues,result_less<span class="sc">@</span>adjPValues), <span class="dv">2</span>)</span>
+<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   endpoints estimate ci_lower_adj ci_upper_adj p_value_2sided_adj
 H1   WL26_D1    -10.0    -15.71797    0.0000000       0.0001771509
-H2   WL26_D2     -5.1    -10.81797    0.2069303       0.0607875892</code></pre>
+H2   WL26_D2     -5.1    -10.81797    0.2069303       0.0607875892
+   p_value_2sided_adj_r
+H1              0.00018
+H2              0.06079</code></pre>
 </div>
 </div>
+</section>
 </section>
 <section id="appendix-r-functions-used-to-calculate-bias-adjusted-estimators-in-example-2" class="level1 unnumbered">
-<h1 class="unnumbered">Appendix: R functions used to calculate bias-adjusted estimators in example 2</h1>
-<div class="cell" data-file="biasCorrectGroupSeqSurvival.R">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: These functions are exploratory only and have not been formally validated!</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>simulateGroupSeqSurvivalTrialResults <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  n,hazardRatio,</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  informationRates, maxNumberOfEvents, <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower=</span> <span class="sc">-</span><span class="cn">Inf</span>,<span class="at">boundaryEffectScaleUpper=</span> <span class="cn">Inf</span>){</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Simulate results of hypothetical group-sequential survival trial</span></span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Simulation is based on the canonical joint multivariate normal distribtion of treatment effect estimates across interims</span></span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span></span>
-<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arguments:</span></span>
-<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - n:                      Number of simulation runs</span></span>
-<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - hazardRatio:            True hazard ratio</span></span>
-<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - informationRates:       Information rates at interim analyses (as in rpact) - vector of length K with last value =1 </span></span>
-<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - maxNumberOfEvents:      Planned number of events at final analysis</span></span>
-<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - allocationRatioPlanned: Planned allocation ratio </span></span>
-<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - boundaryEffectScaleLower, boundaryEffectScaleUpper: Stopping boundaries on hazard ratio scale (MDDs)</span></span>
-<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">#---------------------------------------------------------------------------------------------------------------------------------------</span></span>
-<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(MASS)</span>
-<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">length</span>(informationRates)</span>
-<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate covariance matrix</span></span>
-<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a>  information <span class="ot">&lt;-</span> informationRates<span class="sc">*</span>maxNumberOfEvents<span class="sc">*</span>allocationRatioPlanned<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>allocationRatioPlanned)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>  variance <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>information</span>
-<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>  covMat <span class="ot">&lt;-</span> <span class="fu">outer</span>(variance,variance,<span class="at">FUN=</span><span class="cf">function</span>(x,y) <span class="fu">pmin</span>(x,y))</span>
-<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform boundaries to log-scale</span></span>
-<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(boundaryEffectScaleLower)<span class="sc">==</span><span class="dv">1</span>) { </span>
-<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a>    boundaryEffectScaleLower <span class="ot">&lt;-</span> <span class="fu">rep</span>(boundaryEffectScaleLower,p<span class="dv">-1</span>)</span>
-<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(boundaryEffectScaleUpper)<span class="sc">==</span><span class="dv">1</span>) { </span>
-<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a>    boundaryEffectScaleUpper <span class="ot">&lt;-</span> <span class="fu">rep</span>(boundaryEffectScaleUpper,p<span class="dv">-1</span>)</span>
-<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a>  boundaryEffectScaleLower <span class="ot">&lt;-</span> <span class="fu">log</span>(boundaryEffectScaleLower)</span>
-<span id="cb64-32"><a href="#cb64-32" aria-hidden="true" tabindex="-1"></a>  boundaryEffectScaleUpper <span class="ot">&lt;-</span> <span class="fu">log</span>(boundaryEffectScaleUpper)</span>
-<span id="cb64-33"><a href="#cb64-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate group-sequential trial results</span></span>
-<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a>  simTrials <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(n,<span class="at">mu=</span><span class="fu">rep</span>(<span class="fu">log</span>(hazardRatio),p),<span class="at">Sigma=</span>covMat)</span>
-<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a>  estimate <span class="ot">&lt;-</span> simTrials[,p] <span class="co"># estimator if trial went to final analysis</span></span>
-<span id="cb64-36"><a href="#cb64-36" aria-hidden="true" tabindex="-1"></a>  stopstage <span class="ot">&lt;-</span> <span class="fu">rep</span>(p,n)</span>
-<span id="cb64-37"><a href="#cb64-37" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> ((p<span class="dv">-1</span>)<span class="sc">:</span><span class="dv">1</span>)){ </span>
-<span id="cb64-38"><a href="#cb64-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># update estimate "backwards in time" with interim results if boundary was crossed at interim</span></span>
-<span id="cb64-39"><a href="#cb64-39" aria-hidden="true" tabindex="-1"></a>    estimate <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((simTrials[,j]<span class="sc">&lt;</span>boundaryEffectScaleLower[j])<span class="sc">|</span>(simTrials[,j]<span class="sc">&gt;</span>boundaryEffectScaleUpper[j]), simTrials[,j], estimate)</span>
-<span id="cb64-40"><a href="#cb64-40" aria-hidden="true" tabindex="-1"></a>    stopstage <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((simTrials[,j]<span class="sc">&lt;</span>boundaryEffectScaleLower[j])<span class="sc">|</span>(simTrials[,j]<span class="sc">&gt;</span>boundaryEffectScaleUpper[j]), j, stopstage)</span>
-<span id="cb64-41"><a href="#cb64-41" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb64-42"><a href="#cb64-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">hazardRatioEstimate=</span><span class="fu">exp</span>(estimate),<span class="at">logHazardRatioEstimate=</span>estimate,<span class="at">stopstage=</span>stopstage)</span>
-<span id="cb64-43"><a href="#cb64-43" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb64-44"><a href="#cb64-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-45"><a href="#cb64-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-46"><a href="#cb64-46" aria-hidden="true" tabindex="-1"></a>biasCorrectGroupSeqSurvival<span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
-<span id="cb64-47"><a href="#cb64-47" aria-hidden="true" tabindex="-1"></a>  hazardRatioMLE, stopstage, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"global"</span>,<span class="st">"stagewise"</span>),</span>
-<span id="cb64-48"><a href="#cb64-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">n=</span><span class="fl">1E6</span>, </span>
-<span id="cb64-49"><a href="#cb64-49" aria-hidden="true" tabindex="-1"></a>  informationRates, maxNumberOfEvents, <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
-<span id="cb64-50"><a href="#cb64-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower=</span> <span class="sc">-</span><span class="cn">Inf</span>,<span class="at">boundaryEffectScaleUpper=</span> <span class="cn">Inf</span>,</span>
-<span id="cb64-51"><a href="#cb64-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed=</span><span class="dv">12</span>, </span>
-<span id="cb64-52"><a href="#cb64-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower=</span><span class="cn">NULL</span>, <span class="at">upper=</span><span class="cn">NULL</span>){</span>
-<span id="cb64-53"><a href="#cb64-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate global or stagewise bias-adjusted estimate for a survival trial based on simulation</span></span>
-<span id="cb64-54"><a href="#cb64-54" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span></span>
-<span id="cb64-55"><a href="#cb64-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arguments:</span></span>
-<span id="cb64-56"><a href="#cb64-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - hazardRAtioMLE:         Standard maximum likelihood estimator of the HR at the stage where the trial stopped</span></span>
-<span id="cb64-57"><a href="#cb64-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - stopstage:              Stage at which the trial stopped in case the stagewise bias-adjusted estimat should be calculated</span></span>
-<span id="cb64-58"><a href="#cb64-58" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - type:                   "global" or "stagewise" adjusted estimate</span></span>
-<span id="cb64-59"><a href="#cb64-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - n:                      Number of simulation runs</span></span>
-<span id="cb64-60"><a href="#cb64-60" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - hazardRatio:            True hazard ratio</span></span>
-<span id="cb64-61"><a href="#cb64-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - informationRates:       Information rates at interim analyses (as in rpact) - vector of length K with last value =1 </span></span>
-<span id="cb64-62"><a href="#cb64-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - maxNumberOfEvents:      Planned number of events at final analysis</span></span>
-<span id="cb64-63"><a href="#cb64-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - allocationRatioPlanned: Planned allocation ratio </span></span>
-<span id="cb64-64"><a href="#cb64-64" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - boundaryEffectScaleLower, boundaryEffectScaleUpper: Stopping boundaries on hazard ratio scale (MDDs)</span></span>
-<span id="cb64-65"><a href="#cb64-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - seed:                   Random seed to guarantee reproducibility</span></span>
-<span id="cb64-66"><a href="#cb64-66" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - lower, upper:           Lower of upper bound of plausible bias-adjusted estimates (only needed if default causes numerical problems)</span></span>
-<span id="cb64-67"><a href="#cb64-67" aria-hidden="true" tabindex="-1"></a>  <span class="co">#---------------------------------------------------------------------------------------------------------------------------------------</span></span>
-<span id="cb64-68"><a href="#cb64-68" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set lower and upper bound for optimisation as estimate +/- 3*SE (if not provided)</span></span>
-<span id="cb64-69"><a href="#cb64-69" aria-hidden="true" tabindex="-1"></a>  seStop <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="dv">1</span><span class="sc">+</span>allocationRatioPlanned)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(allocationRatioPlanned<span class="sc">*</span>informationRates[stopstage]<span class="sc">*</span>maxNumberOfEvents))</span>
-<span id="cb64-70"><a href="#cb64-70" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(lower)){ lower <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">log</span>(hazardRatioMLE)<span class="sc">-</span><span class="dv">3</span><span class="sc">*</span>seStop) } </span>
-<span id="cb64-71"><a href="#cb64-71" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(upper)){ upper <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">log</span>(hazardRatioMLE)<span class="sc">+</span><span class="dv">3</span><span class="sc">*</span>seStop) }</span>
-<span id="cb64-72"><a href="#cb64-72" aria-hidden="true" tabindex="-1"></a>  root <span class="ot">&lt;-</span> <span class="cf">function</span>(newHazardRatio){</span>
-<span id="cb64-73"><a href="#cb64-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(seed)</span>
-<span id="cb64-74"><a href="#cb64-74" aria-hidden="true" tabindex="-1"></a>    sim <span class="ot">&lt;-</span> <span class="fu">simulateGroupSeqSurvivalTrialResults</span>(n,<span class="at">hazardRatio=</span>newHazardRatio,</span>
-<span id="cb64-75"><a href="#cb64-75" aria-hidden="true" tabindex="-1"></a>                                                informationRates, maxNumberOfEvents, allocationRatioPlanned,</span>
-<span id="cb64-76"><a href="#cb64-76" aria-hidden="true" tabindex="-1"></a>                                                boundaryEffectScaleLower,boundaryEffectScaleUpper)</span>
-<span id="cb64-77"><a href="#cb64-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (type<span class="sc">==</span><span class="st">"global"</span>) { </span>
-<span id="cb64-78"><a href="#cb64-78" aria-hidden="true" tabindex="-1"></a>      bias <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim<span class="sc">$</span>logHazardRatioEstimate)<span class="sc">-</span><span class="fu">log</span>(newHazardRatio) </span>
-<span id="cb64-79"><a href="#cb64-79" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (type<span class="sc">==</span><span class="st">"stagewise"</span>){</span>
-<span id="cb64-80"><a href="#cb64-80" aria-hidden="true" tabindex="-1"></a>      bias <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim<span class="sc">$</span>logHazardRatioEstimate[sim<span class="sc">$</span>stopstage<span class="sc">==</span>stopstage])<span class="sc">-</span><span class="fu">log</span>(newHazardRatio)  </span>
-<span id="cb64-81"><a href="#cb64-81" aria-hidden="true" tabindex="-1"></a>    } </span>
-<span id="cb64-82"><a href="#cb64-82" aria-hidden="true" tabindex="-1"></a>    <span class="fu">log</span>(newHazardRatio)<span class="sc">-</span><span class="fu">log</span>(hazardRatioMLE)<span class="sc">+</span>bias <span class="co"># this corresponds to formula (4.14)/(4.15) in Wassmer&amp;Brannath (page 98) </span></span>
-<span id="cb64-83"><a href="#cb64-83" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb64-84"><a href="#cb64-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uniroot</span>(root,<span class="at">lower=</span>lower,<span class="at">upper=</span>upper)<span class="sc">$</span>root</span>
-<span id="cb64-85"><a href="#cb64-85" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h1 class="unnumbered">Appendix: R functions used to calculate bias-adjusted estimators in Example 2</h1>
+<div class="cell" data-file="biasCorrectGroupSeqSurvival.r">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: These functions are exploratory only and have not been formally validated!</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>simulateGroupSeqSurvivalTrialResults <span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  n, hazardRatio,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  informationRates, maxNumberOfEvents, <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">boundaryEffectScaleUpper =</span> <span class="cn">Inf</span>){</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Simulate results of hypothetical group-sequential survival trial</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Simulation is based on the canonical joint multivariate normal distribution of treatment effect estimates across interims</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arguments:</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - n:                      Number of simulation runs</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - hazardRatio:            True hazard ratio</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - informationRates:       Information rates at interim analyses (as in rpact) - vector of length K with last value =1 </span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - maxNumberOfEvents:      Planned number of events at final analysis</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - allocationRatioPlanned: Planned allocation ratio </span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - boundaryEffectScaleLower, boundaryEffectScaleUpper: Stopping boundaries on hazard ratio scale (MDDs)</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">#---------------------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(MASS)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">length</span>(informationRates)</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># calculate covariance matrix</span></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  information <span class="ot">&lt;-</span> informationRates <span class="sc">*</span> maxNumberOfEvents <span class="sc">*</span> allocationRatioPlanned <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> allocationRatioPlanned) <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>  variance <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> information</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>  covMat <span class="ot">&lt;-</span> <span class="fu">outer</span>(variance, variance, <span class="at">FUN =</span> <span class="cf">function</span>(x,y){<span class="fu">pmin</span>(x,y)})</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># transform boundaries to log-scale</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(boundaryEffectScaleLower) <span class="sc">==</span> <span class="dv">1</span>){ </span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>    boundaryEffectScaleLower <span class="ot">&lt;-</span> <span class="fu">rep</span>(boundaryEffectScaleLower, p <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(boundaryEffectScaleUpper) <span class="sc">==</span> <span class="dv">1</span>){ </span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>    boundaryEffectScaleUpper <span class="ot">&lt;-</span> <span class="fu">rep</span>(boundaryEffectScaleUpper, p <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>  boundaryEffectScaleLower <span class="ot">&lt;-</span> <span class="fu">log</span>(boundaryEffectScaleLower)</span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>  boundaryEffectScaleUpper <span class="ot">&lt;-</span> <span class="fu">log</span>(boundaryEffectScaleUpper)</span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simulate group-sequential trial results</span></span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>  simTrials <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(n, <span class="at">mu =</span> <span class="fu">rep</span>(<span class="fu">log</span>(hazardRatio), p), <span class="at">Sigma =</span> covMat)</span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># estimator if trial went to final analysis</span></span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>  estimate <span class="ot">&lt;-</span> simTrials[, p] </span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>  stopstage <span class="ot">&lt;-</span> <span class="fu">rep</span>(p, n)</span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> ((p <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="dv">1</span>)){ </span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># update estimate "backwards in time" with interim results if boundary was crossed at interim</span></span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>    estimate <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((simTrials[, j] <span class="sc">&lt;</span> boundaryEffectScaleLower[j]) <span class="sc">|</span> (simTrials[, j] <span class="sc">&gt;</span> boundaryEffectScaleUpper[j]), simTrials[,j], estimate)</span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>    stopstage <span class="ot">&lt;-</span> <span class="fu">ifelse</span>((simTrials[, j] <span class="sc">&lt;</span> boundaryEffectScaleLower[j]) <span class="sc">|</span> (simTrials[, j] <span class="sc">&gt;</span> boundaryEffectScaleUpper[j]), j, stopstage)</span>
+<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb41-49"><a href="#cb41-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">hazardRatioEstimate =</span> <span class="fu">exp</span>(estimate), <span class="at">logHazardRatioEstimate =</span> estimate, <span class="at">stopstage =</span> stopstage)</span>
+<span id="cb41-50"><a href="#cb41-50" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-51"><a href="#cb41-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-52"><a href="#cb41-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-53"><a href="#cb41-53" aria-hidden="true" tabindex="-1"></a>biasCorrectGroupSeqSurvival<span class="ot">&lt;-</span> <span class="cf">function</span>(</span>
+<span id="cb41-54"><a href="#cb41-54" aria-hidden="true" tabindex="-1"></a>  hazardRatioMLE, stopstage, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"global"</span>, <span class="st">"stagewise"</span>),</span>
+<span id="cb41-55"><a href="#cb41-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fl">1E6</span>, informationRates, maxNumberOfEvents, <span class="at">allocationRatioPlanned =</span> <span class="dv">1</span>,</span>
+<span id="cb41-56"><a href="#cb41-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">boundaryEffectScaleLower =</span> <span class="sc">-</span><span class="cn">Inf</span>,<span class="at">boundaryEffectScaleUpper =</span> <span class="cn">Inf</span>,</span>
+<span id="cb41-57"><a href="#cb41-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">12</span>, <span class="at">lower =</span> <span class="cn">NULL</span>, <span class="at">upper =</span> <span class="cn">NULL</span>){</span>
+<span id="cb41-58"><a href="#cb41-58" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-59"><a href="#cb41-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate global or stagewise bias-adjusted estimate for a survival trial based on simulation</span></span>
+<span id="cb41-60"><a href="#cb41-60" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span></span>
+<span id="cb41-61"><a href="#cb41-61" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arguments:</span></span>
+<span id="cb41-62"><a href="#cb41-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - hazardRAtioMLE:         Standard maximum likelihood estimator of the HR at the stage where the trial stopped</span></span>
+<span id="cb41-63"><a href="#cb41-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - stopstage:              Stage at which the trial stopped in case the stagewise bias-adjusted estimat should be calculated</span></span>
+<span id="cb41-64"><a href="#cb41-64" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - type:                   "global" or "stagewise" adjusted estimate</span></span>
+<span id="cb41-65"><a href="#cb41-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - n:                      Number of simulation runs</span></span>
+<span id="cb41-66"><a href="#cb41-66" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - hazardRatio:            True hazard ratio</span></span>
+<span id="cb41-67"><a href="#cb41-67" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - informationRates:       Information rates at interim analyses (as in rpact) - vector of length K with last value =1 </span></span>
+<span id="cb41-68"><a href="#cb41-68" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - maxNumberOfEvents:      Planned number of events at final analysis</span></span>
+<span id="cb41-69"><a href="#cb41-69" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - allocationRatioPlanned: Planned allocation ratio </span></span>
+<span id="cb41-70"><a href="#cb41-70" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - boundaryEffectScaleLower, boundaryEffectScaleUpper: Stopping boundaries on hazard ratio scale (MDDs)</span></span>
+<span id="cb41-71"><a href="#cb41-71" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - seed:                   Random seed to guarantee reproducibility</span></span>
+<span id="cb41-72"><a href="#cb41-72" aria-hidden="true" tabindex="-1"></a>  <span class="co"># - lower, upper:           Lower of upper bound of plausible bias-adjusted estimates (only needed if default causes numerical problems)</span></span>
+<span id="cb41-73"><a href="#cb41-73" aria-hidden="true" tabindex="-1"></a>  <span class="co">#---------------------------------------------------------------------------------------------------------------------------------------</span></span>
+<span id="cb41-74"><a href="#cb41-74" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-75"><a href="#cb41-75" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set lower and upper bound for optimisation as estimate +/- 3 * SE (if not provided)</span></span>
+<span id="cb41-76"><a href="#cb41-76" aria-hidden="true" tabindex="-1"></a>  seStop <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="dv">1</span> <span class="sc">+</span> allocationRatioPlanned) <span class="sc">^</span> <span class="dv">2</span> <span class="sc">/</span> (allocationRatioPlanned <span class="sc">*</span> informationRates[stopstage] <span class="sc">*</span> maxNumberOfEvents))</span>
+<span id="cb41-77"><a href="#cb41-77" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(lower)){lower <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">log</span>(hazardRatioMLE) <span class="sc">-</span> <span class="dv">3</span> <span class="sc">*</span> seStop)} </span>
+<span id="cb41-78"><a href="#cb41-78" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(upper)){upper <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">log</span>(hazardRatioMLE) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> seStop)}</span>
+<span id="cb41-79"><a href="#cb41-79" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-80"><a href="#cb41-80" aria-hidden="true" tabindex="-1"></a>  root <span class="ot">&lt;-</span> <span class="cf">function</span>(newHazardRatio){</span>
+<span id="cb41-81"><a href="#cb41-81" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set.seed</span>(seed)</span>
+<span id="cb41-82"><a href="#cb41-82" aria-hidden="true" tabindex="-1"></a>    sim <span class="ot">&lt;-</span> <span class="fu">simulateGroupSeqSurvivalTrialResults</span>(n,<span class="at">hazardRatio =</span> newHazardRatio,</span>
+<span id="cb41-83"><a href="#cb41-83" aria-hidden="true" tabindex="-1"></a>                                                informationRates, maxNumberOfEvents, allocationRatioPlanned,</span>
+<span id="cb41-84"><a href="#cb41-84" aria-hidden="true" tabindex="-1"></a>                                                boundaryEffectScaleLower, boundaryEffectScaleUpper)</span>
+<span id="cb41-85"><a href="#cb41-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (type <span class="sc">==</span> <span class="st">"global"</span>) { </span>
+<span id="cb41-86"><a href="#cb41-86" aria-hidden="true" tabindex="-1"></a>      bias <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim<span class="sc">$</span>logHazardRatioEstimate) <span class="sc">-</span> <span class="fu">log</span>(newHazardRatio) </span>
+<span id="cb41-87"><a href="#cb41-87" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (type <span class="sc">==</span> <span class="st">"stagewise"</span>){</span>
+<span id="cb41-88"><a href="#cb41-88" aria-hidden="true" tabindex="-1"></a>      bias <span class="ot">&lt;-</span> <span class="fu">mean</span>(sim<span class="sc">$</span>logHazardRatioEstimate[sim<span class="sc">$</span>stopstage <span class="sc">==</span> stopstage]) <span class="sc">-</span> <span class="fu">log</span>(newHazardRatio)  </span>
+<span id="cb41-89"><a href="#cb41-89" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb41-90"><a href="#cb41-90" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb41-91"><a href="#cb41-91" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this corresponds to formula (4.14)/(4.15) in Wassmer&amp;Brannath (page 98) </span></span>
+<span id="cb41-92"><a href="#cb41-92" aria-hidden="true" tabindex="-1"></a>    <span class="fu">log</span>(newHazardRatio) <span class="sc">-</span> <span class="fu">log</span>(hazardRatioMLE) <span class="sc">+</span> bias </span>
+<span id="cb41-93"><a href="#cb41-93" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb41-94"><a href="#cb41-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">uniroot</span>(root, <span class="at">lower =</span> lower, <span class="at">upper =</span> upper)<span class="sc">$</span>root</span>
+<span id="cb41-95"><a href="#cb41-95" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-asikanius_26" class="csl-entry" role="listitem">
+Asikanius, Elina. 2026. <span>“Communicating Results in Trials with Multiple Hypotheses or Adaptive Design Features.”</span>
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
