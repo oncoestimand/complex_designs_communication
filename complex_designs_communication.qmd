@@ -149,7 +149,8 @@ data.frame(
   ci_lower_adj = ci_results_greater[, "lower bound"], 
   ci_upper_adj = ci_results_less[, "upper bound"], 
   p_value_2sided_adj  = 2 * pmin(result_greater@adjPValues, result_less@adjPValues),
-  p_value_2sided_adj_r  = round(2 * pmin(result_greater@adjPValues, result_less@adjPValues), 2)
+  p_value_2sided_adj_r  = round(2 * pmin(result_greater@adjPValues, 
+                                         result_less@adjPValues), 2)
 )
 ```
 
@@ -435,7 +436,8 @@ data.frame(
   ci_lower_unadj = estimate - za * se, 
   ci_upper_unadj = estimate + za * se, 
   p_value_2sided_adj = 2 * pmin(p_values_greater, p_values_less),
-  p_value_2sided_adj_r = format.pval(2 * pmin(p_values_greater, p_values_less), 2)
+  p_value_2sided_adj_r = 
+    format.pval(2 * pmin(p_values_greater, p_values_less), 2)
   )
 ```
 
@@ -522,7 +524,8 @@ data.frame(
   ci_lower_adj = round(ci_results_greater[, "lower bound"], 1), 
   ci_upper_adj = round(ci_results_less[, "upper bound"], 1), 
   p_value_2sided_adj = 2 * pmin(result_greater@adjPValues, result_less@adjPValues),
-  p_value_2sided_adj_r = format.pval(2 * pmin(result_greater@adjPValues, result_less@adjPValues), 2)
+  p_value_2sided_adj_r = 
+    format.pval(2 * pmin(result_greater@adjPValues, result_less@adjPValues), 2)
 )
 ```
 ## Trial results adjusting for doses, only Week 26
@@ -610,7 +613,8 @@ data.frame(
   ci_lower_adj = ci_results_greater[, "lower bound"], 
   ci_upper_adj = ci_results_less[, "upper bound"], 
   p_value_2sided_adj  = 2 * pmin(result_greater@adjPValues,result_less@adjPValues),
-  p_value_2sided_adj_r  = format.pval(2 * pmin(result_greater@adjPValues,result_less@adjPValues), 2)
+  p_value_2sided_adj_r  = 
+    format.pval(2 * pmin(result_greater@adjPValues,result_less@adjPValues), 2)
 )
 ```
 

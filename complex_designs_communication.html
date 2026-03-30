@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Marcel Wolbers, on behalf of the author team">
-<meta name="dcterms.date" content="2026-03-05">
+<meta name="dcterms.date" content="2026-03-30">
 
 <title>Code supporting the examples in the paper Communicating results in trials with multiple hypotheses or adaptive design features</title>
 <style>
@@ -142,7 +142,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 5, 2026</p>
+      <p class="date">March 30, 2026</p>
     </div>
   </div>
   
@@ -314,8 +314,9 @@ div.csl-indent {
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_adj =</span> ci_results_greater[, <span class="st">"lower bound"</span>], </span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_adj =</span> ci_results_less[, <span class="st">"upper bound"</span>], </span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj  =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues, result_less<span class="sc">@</span>adjPValues),</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r  =</span> <span class="fu">round</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues, result_less<span class="sc">@</span>adjPValues), <span class="dv">2</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r  =</span> <span class="fu">round</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues, </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                                         result_less<span class="sc">@</span>adjPValues), <span class="dv">2</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    endpoints estimate ci_lower_adj ci_upper_adj p_value_2sided_adj
 H1     CDR-SB     -0.4         -0.7          0.0         0.00896764
@@ -939,8 +940,9 @@ H3                 0.09</code></pre>
 <span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_unadj =</span> estimate <span class="sc">-</span> za <span class="sc">*</span> se, </span>
 <span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_unadj =</span> estimate <span class="sc">+</span> za <span class="sc">*</span> se, </span>
 <span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(p_values_greater, p_values_less),</span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r =</span> <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(p_values_greater, p_values_less), <span class="dv">2</span>)</span>
-<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r =</span> </span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(p_values_greater, p_values_less), <span class="dv">2</span>)</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  endpoints estimate ci_lower_unadj ci_upper_unadj p_value_2sided_adj
 1   WL26_D1    -10.0          -15.0           -5.0       8.857544e-05
@@ -1040,8 +1042,9 @@ H3                 0.09</code></pre>
 <span id="cb36-53"><a href="#cb36-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_adj =</span> <span class="fu">round</span>(ci_results_greater[, <span class="st">"lower bound"</span>], <span class="dv">1</span>), </span>
 <span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_adj =</span> <span class="fu">round</span>(ci_results_less[, <span class="st">"upper bound"</span>], <span class="dv">1</span>), </span>
 <span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues, result_less<span class="sc">@</span>adjPValues),</span>
-<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r =</span> <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues, result_less<span class="sc">@</span>adjPValues), <span class="dv">2</span>)</span>
-<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r =</span> </span>
+<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues, result_less<span class="sc">@</span>adjPValues), <span class="dv">2</span>)</span>
+<span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   endpoints estimate ci_lower_adj ci_upper_adj p_value_2sided_adj
 H1   WL26_D1    -10.0        -15.7         -4.3       0.0001771509
@@ -1143,8 +1146,9 @@ H4              0.04559</code></pre>
 <span id="cb39-51"><a href="#cb39-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_lower_adj =</span> ci_results_greater[, <span class="st">"lower bound"</span>], </span>
 <span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_upper_adj =</span> ci_results_less[, <span class="st">"upper bound"</span>], </span>
 <span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj  =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues,result_less<span class="sc">@</span>adjPValues),</span>
-<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r  =</span> <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues,result_less<span class="sc">@</span>adjPValues), <span class="dv">2</span>)</span>
-<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_value_2sided_adj_r  =</span> </span>
+<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format.pval</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="fu">pmin</span>(result_greater<span class="sc">@</span>adjPValues,result_less<span class="sc">@</span>adjPValues), <span class="dv">2</span>)</span>
+<span id="cb39-56"><a href="#cb39-56" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   endpoints estimate ci_lower_adj ci_upper_adj p_value_2sided_adj
 H1   WL26_D1    -10.0    -15.71797    0.0000000       0.0001771509
@@ -1260,7 +1264,7 @@ H2              0.06079</code></pre>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-asikanius_26" class="csl-entry" role="listitem">
-Asikanius, Elina. 2026. <span>“Communicating Results in Trials with Multiple Hypotheses or Adaptive Design Features.”</span>
+Asikanius, Elina and Wolbers, Marcel, and Akacha, Mouna and Geroldinger, Angelika and Hofner, Benjamin and Häring, Dieter A. and Klinglmüller, Florian and Posch, Martin and Roes, Kit C.B. and Vandemeulebroecke, Marc and Wright, David and Zinserling, Joerg and Rufibach, Kaspar. 2026. <span>“Communicating Results in Trials with Multiple Hypotheses or Adaptive Design Features.”</span>
 </div>
 </div></section></div></main>
 <!-- /main column -->
